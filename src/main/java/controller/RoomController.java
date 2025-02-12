@@ -42,13 +42,10 @@ public class RoomController {
     private void joinRoomUI() {
         System.out.print("\n 참가할 방의 코드를 입력하세요: ");
         String roomCode = scanner.nextLine();
-        System.out.print("닉네임을 입력하세요: ");
-        String username = scanner.nextLine();
 
-        boolean success = roomService.joinRoom(roomCode, username);
+        boolean success = roomService.joinRoom(roomCode);
         if (success) {
             System.out.println("\n방 참가 성공!");
-            //
         } else {
             System.out.println("\n방 참가 실패! 다시 시도해 주세요.");
         }

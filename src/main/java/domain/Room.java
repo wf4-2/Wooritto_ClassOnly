@@ -28,4 +28,8 @@ public class Room {
         }
         return false;
     }
+
+    public String generateAnonymousName() {
+        return "익명" + (participants.size() + 1);
+    }
 }
