@@ -1,6 +1,8 @@
 package service;
 
 import domain.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.UserRepository;
 import util.Hasher;
 
@@ -10,6 +12,7 @@ import java.util.regex.Pattern;
 public class UserService {
     private final UserRepository userRepository;
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+    private static final Logger logger = LogManager.getLogger(UserService.class);
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -17,12 +20,12 @@ public class UserService {
 
     public boolean signup(String email, String password, String name) {
         if (!isValidEmail(email)) {
-            System.out.println("유효하지 않은 이메일 형식입니다. 다시 입력해주세요.");
+            logger.warn("유효하지 않은 이메일 형식입니다. 다시 입력해주세요.");
             return false;
         }
 
         if (userRepository.findByEmail(email) != null) {
-            System.out.println("이미 사용 중인 이메일입니다.");
+            logger.warn("이미 사용 중인 이메일입니다.");
             return false;
         }
 
@@ -39,7 +42,7 @@ public class UserService {
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
+            logger.warn("아이디 또는 비밀번호가 일치하지 않습니다.");
             return false;
         }
 

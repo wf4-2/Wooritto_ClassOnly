@@ -1,6 +1,8 @@
 package repository;
 
 import domain.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.DatabaseUtil;
 
 import java.sql.Connection;
@@ -9,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserRepository {
+    private static final Logger logger = LogManager.getLogger(UserRepository.class);
+
     public void save(User user) {
         String sql = "INSERT INTO users (email, name, hashed_password, salt) VALUES (?, ?, ?, ?)";
 
@@ -20,7 +24,7 @@ public class UserRepository {
             stmt.setString(4, user.getSalt());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("사용자 저장 중 오류 발생", e);
         }
     }
 
@@ -41,7 +45,7 @@ public class UserRepository {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("사용자 조회 중 오류 발생", e);
         }
         return null;
     }

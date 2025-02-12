@@ -1,14 +1,17 @@
 package service;
 
 import domain.Room;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.RoomRepository;
+import util.Hasher;
 import util.RoomCodeGenerator;
-import util.SimpleHasher;
 
 import java.util.Optional;
 
 public class RoomService {
     private final RoomRepository roomRepository;
+    private static final Logger logger = LogManager.getLogger(RoomService.class);
 
     public RoomService(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
@@ -16,25 +19,26 @@ public class RoomService {
 
     public Room createRoom(String name, int maxParticipants) {
         String roomCode = RoomCodeGenerator.generateRoomCode();
-        String encryptedCode = SimpleHasher.hash(roomCode);
+        String encryptedCode = Hasher.hash(roomCode);
 
         Room newRoom = new Room(name, maxParticipants, encryptedCode);
         try {
             roomRepository.saveRoom(newRoom);
+            logger.info("\n방 생성 완료! 참가 코드: {}", roomCode);
         } catch (RuntimeException e) {
+            logger.error("방 생성 중 오류 발생", e);
             throw new RuntimeException(e);
         }
 
-        System.out.println("\n방 생성 완료! 참가 코드: " + roomCode);
         return newRoom;
     }
 
     public boolean joinRoom(String roomCode) {
-        String encryptedCode = SimpleHasher.hash(roomCode);
+        String encryptedCode = Hasher.hash(roomCode);
         Optional<Room> roomOpt = Optional.ofNullable(roomRepository.findRoomByCode(encryptedCode));
 
         if (roomOpt.isEmpty()) {
-            System.out.println("\n⚠유효하지 않은 방 코드입니다.");
+            logger.warn("\n⚠유효하지 않은 방 코드입니다.");
             return false;
         }
 
@@ -44,7 +48,7 @@ public class RoomService {
         if (room.addParticipant(anonymousUsername)) {
             return true;
         } else {
-            System.out.println("\n방이 가득 찼습니다! 다른 방을 시도해 주세요.");
+            logger.warn("\n방이 가득 찼습니다! 다른 방을 시도해 주세요.");
             return false;
         }
     }

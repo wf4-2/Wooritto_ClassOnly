@@ -1,10 +1,14 @@
 package repository;
 
 import domain.Room;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.DatabaseUtil;
 import java.sql.*;
 
 public class RoomRepository {
+    private static final Logger logger = LogManager.getLogger(UserRepository.class);
+
     public void saveRoom(Room room) {
         String sql = "INSERT INTO rooms (name, max_participants, join_code) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseUtil.getConnection();
@@ -14,7 +18,7 @@ public class RoomRepository {
             stmt.setString(3, room.getJoinCode());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("방 저장 중 오류 발생", e);
         }
     }
 
@@ -32,7 +36,7 @@ public class RoomRepository {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("방 조회 중 오류 발생", e);
         }
         return null;
     }

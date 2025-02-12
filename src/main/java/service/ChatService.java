@@ -1,10 +1,15 @@
 package service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ChatService {
+    private static final Logger logger = LogManager.getLogger(ChatService.class);
+
     private static final String[] USERS = {"익명1", "익명2"};
     private static final String[] MESSAGES = {
         "안녕!", "오늘 기분 어때?", "뭐 어때 안좋지",
@@ -26,13 +31,13 @@ public class ChatService {
 
     private static void simulateChat(String user) {
         try {
-            for (int i = 0; i < 5; i++) {  // 각 사용자가 5개의 메시지를 보냄
+            for (int i = 0; i < 5; i++) {
                 Thread.sleep(random.nextInt(3000) + 1000);
                 String message = MESSAGES[random.nextInt(MESSAGES.length)];
                 System.out.println(user + ": " + message);
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("채팅 시뮬레이션 중 오류 발생: {}", user, e);
         }
     }
 }
