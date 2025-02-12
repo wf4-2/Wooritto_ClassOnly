@@ -19,31 +19,34 @@ public class RoomService {
         String encryptedCode = SimpleHasher.hash(roomCode);
 
         Room newRoom = new Room(name, maxParticipants, encryptedCode);
-        try{
+        try {
             roomRepository.saveRoom(newRoom);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("\n✅ 방 생성 완료! 참가 코드: " + roomCode);
+        System.out.println("\n방 생성 완료! 참가 코드: " + roomCode);
         return newRoom;
     }
 
-    public boolean joinRoom(String roomCode, String username) {
+    public boolean joinRoom(String roomCode) {
         String encryptedCode = SimpleHasher.hash(roomCode);
         Optional<Room> roomOpt = Optional.ofNullable(roomRepository.findRoomByCode(encryptedCode));
 
         if (roomOpt.isEmpty()) {
-            System.out.println("\n⚠️ 유효하지 않은 방 코드입니다.");
+            System.out.println("\n⚠유효하지 않은 방 코드입니다.");
             return false;
         }
 
         Room room = roomOpt.get();
-        if (room.addParticipant(username)) {
-            System.out.println("\n🎉 방 참가 성공! " + room.getName() + "에 입장했습니다.");
+        String anonymousUsername = room.generateAnonymousName(); // 자동 생성된 닉네임 사용
+
+        if (room.addParticipant(anonymousUsername)) {
+            System.out.println("\n방 참가 성공! " + room.getName() + "에 '"
+                    + anonymousUsername + "'(으)로 입장했습니다.");
             return true;
         } else {
-            System.out.println("\n🚫 방이 가득 찼습니다! 다른 방을 시도해 주세요.");
+            System.out.println("\n방이 가득 찼습니다! 다른 방을 시도해 주세요.");
             return false;
         }
     }
