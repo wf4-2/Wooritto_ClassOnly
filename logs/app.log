@@ -1,0 +1,11 @@
+2025-02-12 14:44:24 [main] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-12 14:45:32 [main] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-12 14:55:11 [main] WARN  UserController - 잘못된 입력: 숫자가 아님
+2025-02-12 14:59:57 [main] INFO  RoomService - 
+방 생성 완료! 참가 코드: R1Z348
+2025-02-12 16:47:23 [main] INFO  RoomService - 
+방 생성 완료! 참가 코드: W80A26
+2025-02-12 16:47:30 [main] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-12 16:53:08 [main] INFO  RoomService - 
+방 생성 완료! 참가 코드: MK4698
