@@ -5,7 +5,8 @@ public class ManittoMain {
 	private static final UserController userController = new UserController();
 
 	public static void main(String[] args) {
-		AsciiArtUtil.printWoorittoLogo(); // 로고 출력
-		userController.run(); // 로그인 또는 회원가입 선택 시작
+		AsciiArtUtil.printWoorittoLogo();
+		System.out.println("WOORITTO에 오신 것을 환영합니다.");
+		userController.run();
 	}
 }
