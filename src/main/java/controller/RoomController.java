@@ -1,5 +1,6 @@
 package controller;
 
+import service.ChatService;
 import service.RoomService;
 import java.util.Scanner;
 
@@ -45,7 +46,7 @@ public class RoomController {
 
         boolean success = roomService.joinRoom(roomCode);
         if (success) {
-            System.out.println("\n방 참가 성공!");
+            ChatService.startChatSimulation();
         } else {
             System.out.println("\n방 참가 실패! 다시 시도해 주세요.");
         }

@@ -2,6 +2,7 @@ package service;
 
 import domain.User;
 import repository.UserRepository;
+import util.SimpleHasher;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -67,18 +68,6 @@ public class UserService {
     private String hashPassword(String password, String salt) {
         String passwordWithSalt = password + salt;
 
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(passwordWithSalt.getBytes());
-
-            StringBuilder hex = new StringBuilder();
-            for (byte b : hashedBytes) {
-                hex.append(String.format("%02x", b));
-            }
-
-            return hex.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("암호화 알고리즘이 존재하지 않습니다.", e);
-        }
+        return SimpleHasher.hash(passwordWithSalt);
     }
 }

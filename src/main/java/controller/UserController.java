@@ -1,12 +1,17 @@
 package controller;
 
+import repository.RoomRepository;
 import repository.UserRepository;
+import service.RoomService;
 import service.UserService;
 
 import java.util.Scanner;
 
 public class UserController {
     private final UserService userService;
+    private final RoomRepository roomRepository = new RoomRepository();
+    private final RoomService roomService = new RoomService(roomRepository);
+    private final RoomController roomController = new RoomController(roomService);
     private final Scanner scanner = new Scanner(System.in);
 
     public UserController() {
@@ -16,7 +21,7 @@ public class UserController {
 
     public void run() {
         while (true) {
-            System.out.println("1. 로그인  2. 회원가입");
+            System.out.println("\n1. 로그인  2. 회원가입");
 
             int loginOrSignup = Integer.parseInt(scanner.nextLine());
 
@@ -32,20 +37,20 @@ public class UserController {
     }
 
     private void handleLogin() {
-        System.out.print("EMAIL: ");
+        System.out.print("\nEMAIL: ");
         String email = scanner.nextLine();
         System.out.print("PW: ");
         String password = scanner.nextLine();
 
         if (userService.login(email, password)) {
-            // TODO: MAIN PAGE 이동
+            roomController.start();
         } else {
             run();
         }
     }
 
     private void handleSignup() {
-        System.out.print("NAME: ");
+        System.out.print("\nNAME: ");
         String name = scanner.nextLine();
         System.out.print("EMAIL: ");
         String email = scanner.nextLine();
@@ -60,7 +65,7 @@ public class UserController {
         }
 
         if (userService.signup(email, password, name)) {
-            System.out.println("회원가입이 완료되었습니다. 로그인해주세요.");
+            System.out.println("\n회원가입이 완료되었습니다. 로그인해주세요.");
         } else {
             handleSignup();
         }

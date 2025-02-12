@@ -39,11 +39,9 @@ public class RoomService {
         }
 
         Room room = roomOpt.get();
-        String anonymousUsername = room.generateAnonymousName(); // 자동 생성된 닉네임 사용
+        String anonymousUsername = room.generateAnonymousName();
 
         if (room.addParticipant(anonymousUsername)) {
-            System.out.println("\n방 참가 성공! " + room.getName() + "에 '"
-                    + anonymousUsername + "'(으)로 입장했습니다.");
             return true;
         } else {
             System.out.println("\n방이 가득 찼습니다! 다른 방을 시도해 주세요.");

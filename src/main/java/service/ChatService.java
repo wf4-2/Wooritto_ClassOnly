@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ChatService {
-    private static final String[] USERS = {"노영재", "임지섭", "서용준"};
+    private static final String[] USERS = {"익명1", "익명2"};
     private static final String[] MESSAGES = {
         "안녕!", "오늘 기분 어때?", "뭐 어때 안좋지",
         "좋은 하루 보내!", "너도", "ㅋㅋㅋ 우리 회식 언제함?",
