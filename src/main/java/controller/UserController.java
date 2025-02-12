@@ -16,7 +16,7 @@ public class UserController {
 
     public void run() {
         while (true) {
-            System.out.println("환영합니다. 아래 메뉴 중 하나를 선택해주세요.\n1. 로그인  2. 회원가입");
+            System.out.println("1. 로그인  2. 회원가입");
 
             int loginOrSignup = Integer.parseInt(scanner.nextLine());
 
@@ -40,7 +40,7 @@ public class UserController {
         if (userService.login(email, password)) {
             // TODO: MAIN PAGE 이동
         } else {
-            System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
+            run();
         }
     }
 
