@@ -2,10 +2,8 @@ package service;
 
 import domain.User;
 import repository.UserRepository;
-import util.SimpleHasher;
+import util.Hasher;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.regex.Pattern;
 
@@ -31,7 +29,7 @@ public class UserService {
         String salt = generateSalt();
         String hashedPassword = hashPassword(password, salt);
 
-        User user = new User(email, hashedPassword, name, salt);
+        User user = new User(email, name, hashedPassword, salt);
         userRepository.save(user);
 
         return true;
@@ -66,8 +64,6 @@ public class UserService {
     }
 
     private String hashPassword(String password, String salt) {
-        String passwordWithSalt = password + salt;
-
-        return SimpleHasher.hash(passwordWithSalt);
+        return Hasher.hash(password + salt);
     }
 }

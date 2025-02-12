@@ -1,0 +1,9 @@
+2025-02-12 14:12:45.427292+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT * FROM users WHERE email = ? [42102-224]
+2025-02-12 14:13:18.759409+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT * FROM users WHERE email = ? [42102-224]
+2025-02-12 14:13:18.833583+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+INSERT INTO users (email, name, hashed_password, salt) VALUES (?, ?, ?, ?) [42102-224]

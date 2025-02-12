@@ -26,19 +26,28 @@ public class DatabaseUtil {
     private static void initializeDatabase() {
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
-            // ✅ 방 테이블 생성
+
+            // ✅ Users 테이블 생성
+            stmt.execute("CREATE TABLE IF NOT EXISTS users (" +
+                    "email VARCHAR(255) PRIMARY KEY, " +
+                    "name VARCHAR(100), " +
+                    "hashed_password VARCHAR(255), " +
+                    "salt VARCHAR(255))");
+
+            // ✅ 방(Rooms) 테이블 생성
             stmt.execute("CREATE TABLE IF NOT EXISTS rooms (" +
                     "id IDENTITY PRIMARY KEY, " +
                     "name VARCHAR(255), " +
                     "max_participants INT, " +
                     "join_code VARCHAR(255))");
 
-            // ✅ 채팅 테이블 생성
+            // ✅ 채팅(Chats) 테이블 생성
             stmt.execute("CREATE TABLE IF NOT EXISTS chats (" +
                     "id IDENTITY PRIMARY KEY, " +
                     "sender VARCHAR(255), " +
                     "message TEXT, " +
                     "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+
         } catch (SQLException e) {
             throw new RuntimeException("데이터베이스 초기화 중 오류 발생!", e);
         }
