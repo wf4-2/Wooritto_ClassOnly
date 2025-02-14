@@ -18,4 +18,8 @@ public class Hasher {
             throw new RuntimeException("해싱 오류 발생", e);
         }
     }
+
+    public static boolean checkPassword(String password, String hashedPassword) {
+        return hash(password).equals(hashedPassword);
+    }
 }

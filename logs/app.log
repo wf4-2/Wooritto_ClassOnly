@@ -9,3 +9,39 @@
 ⚠유효하지 않은 방 코드입니다.
 2025-02-12 16:53:08 [main] INFO  RoomService - 
 방 생성 완료! 참가 코드: MK4698
+2025-02-14 12:36:06 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:37:08 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:38:09 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:39:38 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:41:27 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:42:35 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:42:49 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:45:04 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:47:02 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 12:48:18 [Test worker] WARN  UserService - 아이디 또는 비밀번호가 일치하지 않습니다.
+2025-02-14 13:28:31 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:28:31 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:28:31 [Test worker] INFO  RoomService - 
+방 생성 완료! 참가 코드: JD0006
+2025-02-14 13:41:33 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:41:33 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:41:33 [Test worker] INFO  RoomService - 
+방 생성 완료! 참가 코드: NY0727
+2025-02-14 13:42:41 [Test worker] INFO  RoomService - 
+방 생성 완료! 참가 코드: 4PT702
+2025-02-14 13:45:26 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:45:34 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:45:34 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 13:45:34 [Test worker] INFO  RoomService - 
+방 생성 완료! 참가 코드: A4B901
+2025-02-14 14:01:51 [Test worker] WARN  RoomService - 
+⚠유효하지 않은 방 코드입니다.
+2025-02-14 14:01:51 [Test worker] INFO  RoomService - 
+방 생성 완료! 참가 코드: I64L25

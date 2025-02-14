@@ -9,14 +9,19 @@ import java.util.Scanner;
 
 public class UserController {
     private final UserService userService;
-    private final RoomRepository roomRepository = new RoomRepository();
-    private final RoomService roomService = new RoomService(roomRepository);
-    private final RoomController roomController = new RoomController(roomService);
-    private final Scanner scanner = new Scanner(System.in);
+    private final RoomController roomController;
+    private Scanner scanner;
 
-    public UserController() {
-        UserRepository userRepository = new UserRepository();
-        this.userService = new UserService(userRepository);
+    // 🔥 생성자에서 외부에서 주입받도록 변경
+    public UserController(UserService userService, RoomController roomController, Scanner scanner) {
+        this.userService = userService;
+        this.roomController = roomController;
+        this.scanner = scanner;
+    }
+
+    // 🔥 Scanner를 변경할 수 있도록 메서드 추가 (테스트용)
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void run() {
@@ -36,39 +41,56 @@ public class UserController {
         }
     }
 
-    private void handleLogin() {
+    public void handleLogin() {
         System.out.print("\nEMAIL: ");
         String email = scanner.nextLine();
         System.out.print("PW: ");
         String password = scanner.nextLine();
 
         if (userService.login(email, password)) {
-            roomController.start();
+            roomController.run();
         } else {
-            run();
+            System.out.println("로그인 실패!");
+            // 🔥 `run()`을 호출하지 않고 종료되도록 변경
         }
     }
 
-    private void handleSignup() {
-        System.out.print("\nNAME: ");
-        String name = scanner.nextLine();
-        System.out.print("EMAIL: ");
-        String email = scanner.nextLine();
-        System.out.print("PW: ");
-        String password = scanner.nextLine();
-        System.out.print("Confirm PW: ");
-        String confirmPassword = scanner.nextLine();
+    public void handleSignup() {
+        String name;
+        String email;
+        String password;
+        String confirmPassword;
 
-        if (!password.equals(confirmPassword)) {
-            System.out.println("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
-            handleSignup();
-        }
+        while (true) {
+            System.out.print("\nNAME: ");
+            name = scanner.nextLine();
 
-        if (userService.signup(email, password, name)) {
-            System.out.println("\n회원가입이 완료되었습니다. 로그인해주세요.");
-        } else {
-            handleSignup();
+            System.out.print("EMAIL: ");
+            email = scanner.nextLine();
+            if (!userService.isValidEmail(email)) { // 🔥 isValidEmail() 조건 수정
+                System.out.println("유효하지 않은 이메일 형식입니다. 다시 입력해주세요.");
+                continue;
+            }
+
+            while (true) {
+                System.out.print("PW: ");
+                password = scanner.nextLine();
+                System.out.print("Confirm PW: ");
+                confirmPassword = scanner.nextLine();
+
+                if (!password.equals(confirmPassword)) {
+                    System.out.println("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+                    continue;
+                }
+                break;
+            }
+
+            if (userService.signup(email, password, name)) {
+                System.out.println("\n회원가입이 완료되었습니다. 로그인해주세요.");
+                break;
+            } else {
+                System.out.println("회원가입 실패! 다시 시도해주세요.");
+            }
         }
     }
-
 }

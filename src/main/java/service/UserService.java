@@ -1,6 +1,7 @@
 package service;
 
 import domain.User;
+import exception.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.UserRepository;
@@ -19,14 +20,12 @@ public class UserService {
     }
 
     public boolean signup(String email, String password, String name) {
-        if (!isValidEmail(email)) {
-            logger.warn("유효하지 않은 이메일 형식입니다. 다시 입력해주세요.");
-            return false;
+        if (isValidEmail(email)) {
+            throw new UserException("유효하지 않은 이메일 형식입니다.");
         }
 
         if (userRepository.findByEmail(email) != null) {
-            logger.warn("이미 사용 중인 이메일입니다.");
-            return false;
+            throw new UserException("이미 사용 중인 이메일입니다.");
         }
 
         String salt = generateSalt();
@@ -42,19 +41,25 @@ public class UserService {
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            logger.warn("아이디 또는 비밀번호가 일치하지 않습니다.");
             return false;
         }
 
-        String hashedPassword = hashPassword(password, user.getSalt());
-        return hashedPassword.equals(user.getHashedPassword());
+        System.out.println("Login - Retrieved User: " + user.getEmail() + ", HashedPassword: " + user.getHashedPassword());
+
+        // 추가 디버깅
+        if (user.getHashedPassword() == null) {
+            System.out.println("⚠ Warning: hashedPassword is NULL!");
+        }
+
+        return Hasher.checkPassword(password, user.getHashedPassword());
     }
 
-    private boolean isValidEmail(String email) {
-        return EMAIL_PATTERN.matcher(email).matches();
+
+    public boolean isValidEmail(String email) {
+        return !EMAIL_PATTERN.matcher(email).matches();
     }
 
-    private String generateSalt() {
+    public String generateSalt() {
         byte[] salt = new byte[16];
         new SecureRandom().nextBytes(salt);
 

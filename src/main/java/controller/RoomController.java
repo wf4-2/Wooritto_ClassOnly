@@ -12,7 +12,7 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    public void start() {
+    public void run() {
         boolean isRunning = true;
 
         while (isRunning) {
@@ -22,9 +22,9 @@ public class RoomController {
             scanner.nextLine();  // 개행 문자 제거
 
             if (choice == 1) {
-                createRoomUI();
+                handleCreateRoom();
             } else if (choice == 2) {
-                if (joinRoomUI()) {
+                if (handleJoinRoom()) {
                     isRunning = false; // 참가 후 루프 종료
                 }
             } else {
@@ -35,7 +35,7 @@ public class RoomController {
     }
 
 
-    private void createRoomUI() {
+    private void handleCreateRoom() {
         System.out.print("\n생성할 방 이름을 입력하세요: ");
         String roomName = scanner.nextLine();
         System.out.print("최대 인원 수를 입력하세요: ");
@@ -45,7 +45,7 @@ public class RoomController {
         roomService.createRoom(roomName, maxParticipants);
     }
 
-    private boolean joinRoomUI() {
+    private boolean handleJoinRoom() {
         System.out.print("\n참가할 방의 코드를 입력하세요: ");
         String roomCode = scanner.nextLine();
 

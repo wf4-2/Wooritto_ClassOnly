@@ -1,6 +1,7 @@
 package repository;
 
 import domain.User;
+import exception.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.DatabaseUtil;
@@ -25,6 +26,7 @@ public class UserRepository {
             stmt.executeUpdate();
         } catch (SQLException e) {
             logger.error("사용자 저장 중 오류 발생", e);
+            throw new UserException("사용자 저장 중 오류 발생", e);
         }
     }
 

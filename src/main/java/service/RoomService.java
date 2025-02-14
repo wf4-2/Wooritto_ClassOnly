@@ -1,6 +1,7 @@
 package service;
 
 import domain.Room;
+import exception.RoomException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.RoomRepository;
@@ -27,7 +28,7 @@ public class RoomService {
             logger.info("\n방 생성 완료! 참가 코드: {}", roomCode);
         } catch (RuntimeException e) {
             logger.error("방 생성 중 오류 발생", e);
-            throw new RuntimeException(e);
+            throw new RoomException("방 생성 중 오류 발생", e);
         }
 
         return newRoom;

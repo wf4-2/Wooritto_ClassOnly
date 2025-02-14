@@ -7,7 +7,7 @@ import util.DatabaseUtil;
 import java.sql.*;
 
 public class RoomRepository {
-    private static final Logger logger = LogManager.getLogger(UserRepository.class);
+    private static final Logger logger = LogManager.getLogger(RoomRepository.class);
 
     public void saveRoom(Room room) {
         String sql = "INSERT INTO rooms (name, max_participants, join_code) VALUES (?, ?, ?)";
@@ -40,4 +40,5 @@ public class RoomRepository {
         }
         return null;
     }
+
 }
